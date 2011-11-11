@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/libs/modernizr-2.0.6.min.js"></script>
+    <script src="js/libs/yepnope-1.1-2011-10-10.min.js"></script>
 </head>
 <body>
     <div class="page">
@@ -21,14 +22,22 @@
         </div>
         <footer></footer>
     </div>
-    <script src="js/libs/jquery-1.6.4.min.js"></script>
-    <script defer src="js/plugins.js"></script>
-    <script defer src="js/script.js"></script>
     <script>
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
+        yepnope({
+            load: ['js/libs/jquery-1.7.min.js'],
+            complete: function() {
+                yepnope({
+                    load: [
+                        'js/plugins.js',
+                        'js/script.js'
+                    ],
+                    complete: function() {
+                        window._gaq = [['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
+                        yepnope({load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'});
+                    }
+                });
+            }
+        });
     </script>
     <!--[if lt IE 7 ]>
     <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
